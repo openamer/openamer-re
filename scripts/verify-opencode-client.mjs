@@ -47,7 +47,7 @@ const skillDirectory = join(
   account,
   ".agents",
   "skills",
-  "reverse-engineer-anything",
+  "openamer-reverse-engineer",
 );
 const isManagedSkillTarget = (target) => {
   const value = relative(skillDirectory, target);
@@ -195,7 +195,7 @@ await withVerifierCleanup(async () => {
           const skill = tools.find((t) => t.name === "skill");
           assert(skill, "OpenCode must expose its native skill tool");
           skillRequested = true;
-          return call(skill.name, { name: "reverse-engineer-anything" });
+          return call(skill.name, { name: "openamer-reverse-engineer" });
         }
         assert(
           skillLoaded,
@@ -301,7 +301,7 @@ await withVerifierCleanup(async () => {
       join(skillDirectory, "SKILL.md"),
       "utf8",
     );
-    assert(installedSkill.includes("name: reverse-engineer-anything"));
+    assert(installedSkill.includes("name: openamer-reverse-engineer"));
     const skillLines = installedSkill.split("\n");
     const headerEnd = skillLines.indexOf("---", 1);
     assert(

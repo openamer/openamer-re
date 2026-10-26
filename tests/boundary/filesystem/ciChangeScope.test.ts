@@ -766,7 +766,7 @@ it.each([
   ],
   ["install.sh", { code: true, runtime: true, package: true, evm: false }],
   [
-    ".agents/skills/reverse-engineer-anything/SKILL.md",
+    ".agents/skills/openamer-reverse-engineer/SKILL.md",
     { code: true, runtime: true, docs: true, package: false, evm: false },
   ],
   [

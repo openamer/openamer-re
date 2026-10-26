@@ -80,7 +80,7 @@ try {
   const entry = join(
     prefix,
     "node_modules",
-    "rea-agents",
+    "openamer-re",
     "scripts",
     "rea.mjs",
   );
@@ -243,8 +243,8 @@ try {
     prefix,
     packageRoot:
       process.platform === "win32"
-        ? join(prefix, "node_modules", "rea-agents")
-        : join(prefix, "lib", "node_modules", "rea-agents"),
+        ? join(prefix, "node_modules", "openamer-re")
+        : join(prefix, "lib", "node_modules", "openamer-re"),
     tarball,
     workspace,
     environment,

@@ -157,7 +157,7 @@ describe("Qwen Code profile setup", () => {
       const skill = join(home, ".agents", "skills", PRODUCT_IDENTITY.skillName);
       await writeFile(join(skill, "user-notes.txt"), "user-authored");
       expect(await readFile(join(skill, "SKILL.md"), "utf8")).toContain(
-        "reverse-engineer-anything",
+        "openamer-reverse-engineer",
       );
       expect(await setup.clientNeedsConfigure(client, {}, command)).toBe(false);
       expect(await setup.skillNeedsInstall([client.name])).toBe(false);

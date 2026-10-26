@@ -10,7 +10,7 @@ import { createTestTempDirectory } from "../../fixtures/temporaryDirectory.js";
 const exec = promisify(execFile);
 const repositoryRoot = fileURLToPath(new URL("../../..", import.meta.url));
 const authored =
-  '---\nname: reverse-engineer-anything\nmetadata:\n  version: "33"\n---\n\n# Instructions\n\nInspect the caller-selected artifact.\n';
+  '---\nname: openamer-reverse-engineer\nmetadata:\n  version: "33"\n---\n\n# Instructions\n\nInspect the caller-selected artifact.\n';
 
 async function fixture(eol = "\n") {
   const root = await createTestTempDirectory("rea-generated-skill-");
@@ -30,8 +30,8 @@ async function fixture(eol = "\n") {
     join(root, "node_modules/yaml"),
     { recursive: true },
   );
-  const sourceRoot = join(root, ".agents/skills/reverse-engineer-anything");
-  const outputRoot = join(root, "skills/reverse-engineer-anything");
+  const sourceRoot = join(root, ".agents/skills/openamer-reverse-engineer");
+  const outputRoot = join(root, "skills/openamer-reverse-engineer");
   await mkdir(join(sourceRoot, "references"), { recursive: true });
   await mkdir(join(root, "dist"));
   await writeFile(join(root, "package.json"), '{"type":"module"}\n');
@@ -165,7 +165,7 @@ it("generates metadata from quoted frontmatter while preserving body metadata ex
     '\n# Instructions\n\n```yaml\nmetadata:\n  version: "body-only"\n  tool_count: 99\n  catalog_digest: example\n```\n';
   await writeFile(
     join(f.sourceRoot, "SKILL.md"),
-    "---\nname: reverse-engineer-anything\nmetadata:\n  version: '33'\n---\n" +
+    "---\nname: openamer-reverse-engineer\nmetadata:\n  version: '33'\n---\n" +
       body,
   );
   await f.generate();
@@ -179,7 +179,7 @@ it("rejects body-only versions instead of generating metadata inside examples", 
   const f = await fixture();
   await writeFile(
     join(f.sourceRoot, "SKILL.md"),
-    '---\nname: reverse-engineer-anything\n---\n\n```yaml\nmetadata:\n  version: "body-only"\n```\n',
+    '---\nname: openamer-reverse-engineer\n---\n\n```yaml\nmetadata:\n  version: "body-only"\n```\n',
   );
   await expect(f.generate()).rejects.toMatchObject({
     stderr: expect.stringContaining("Missing authored skill version"),

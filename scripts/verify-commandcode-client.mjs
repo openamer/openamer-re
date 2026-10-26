@@ -47,7 +47,7 @@ const skillDirectory = join(
   account,
   ".agents",
   "skills",
-  "reverse-engineer-anything",
+  "openamer-reverse-engineer",
 );
 const expectedNames = TOOL_CONTRACTS.map(
   (tool) => "mcp__rea__" + tool.name,
@@ -167,7 +167,7 @@ await withVerifierCleanup(async () => {
             tools
               .find((tool) => tool.name === "activate_skill")
               ?.parameters.properties.name.enum.includes(
-                "reverse-engineer-anything",
+                "openamer-reverse-engineer",
               ),
           );
           inventoryChecked = true;
@@ -181,7 +181,7 @@ await withVerifierCleanup(async () => {
           return { role: "assistant", content: "REA_CLIENT_COMPATIBILITY_OK" };
         }
         if (stage === 0)
-          return call("activate_skill", { name: "reverse-engineer-anything" });
+          return call("activate_skill", { name: "openamer-reverse-engineer" });
         assert(
           strings.some((text) => text.includes(expectedSkill)),
           "The model must receive the complete activated skill body",

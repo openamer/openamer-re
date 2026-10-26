@@ -48,7 +48,7 @@ describe("Factory Droid configuration paths", () => {
     expect(
       skillDestinations("/home/a", ["droid"]).map(({ path }) => path),
     ).toEqual([
-      join("/home/a", ".factory", "skills", "reverse-engineer-anything"),
+      join("/home/a", ".factory", "skills", "openamer-reverse-engineer"),
     ]);
   });
 });

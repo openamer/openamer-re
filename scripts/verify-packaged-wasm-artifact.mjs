@@ -47,7 +47,7 @@ const verifiedOutput = await withVerifierCleanup(async () => {
     ...(process.platform === "win32"
       ? ["node_modules"]
       : ["lib", "node_modules"]),
-    "rea-agents",
+    "openamer-re",
     "scripts",
     "rea.mjs",
   );

@@ -148,7 +148,7 @@ describe("TTY setup dry run", () => {
   it("shows the refusal instead of a blocked skill plan for a TTY dry run", async () => {
     const home = await createTestTempDirectory("rea-cli-setup-linked-dry-run-");
     const managed = join(home, "managed-skill");
-    const linked = join(home, ".claude/skills/reverse-engineer-anything");
+    const linked = join(home, ".claude/skills/openamer-reverse-engineer");
     const original = "user-managed skill bytes\n";
     await mkdir(managed);
     await writeFile(join(managed, "SKILL.md"), original);

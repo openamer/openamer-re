@@ -17,7 +17,7 @@ cliTest(
       home,
       ".agents",
       "skills",
-      "reverse-engineer-anything",
+      "openamer-reverse-engineer",
       "SKILL.md",
     );
     const environment = { USERPROFILE: home, QWEN_HOME: profile };
@@ -36,7 +36,7 @@ cliTest(
         { kind: "configure_client", target: settings },
         {
           kind: "install_skill",
-          target: join(home, ".agents", "skills", "reverse-engineer-anything"),
+          target: join(home, ".agents", "skills", "openamer-reverse-engineer"),
         },
       ],
     });
@@ -60,7 +60,7 @@ cliTest(
       },
     });
     expect(await readFile(skill, "utf8")).toContain(
-      "name: reverse-engineer-anything",
+      "name: openamer-reverse-engineer",
     );
 
     const doctor = await run(["doctor", "--client", "qwen_code", "--skill"]);

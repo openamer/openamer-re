@@ -82,7 +82,7 @@ const codexHome = join(evaluationRoot, "codex");
 const authPath = join(codexHome, "auth.json");
 const skillDestination = join(
   account,
-  ".agents/skills/reverse-engineer-anything",
+  ".agents/skills/openamer-reverse-engineer",
 );
 const evaluationEnvironment = {
   ...Object.fromEntries(

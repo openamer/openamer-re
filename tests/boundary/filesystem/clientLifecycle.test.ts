@@ -1518,7 +1518,7 @@ describe("client configuration filesystem removal", () => {
     const cursor = join(home, ".cursor/mcp.json");
     const skill = join(
       home,
-      ".agents/skills/reverse-engineer-anything/SKILL.md",
+      ".agents/skills/openamer-reverse-engineer/SKILL.md",
     );
     await mkdir(dirname(cursor), { recursive: true });
     await mkdir(dirname(skill), { recursive: true });
@@ -1557,8 +1557,8 @@ describe("client configuration filesystem removal", () => {
 
   it("removes emptied skill directories and keeps ones with user files", async () => {
     const home = await createTestTempDirectory("rea-uninstall-skill-dirs-");
-    const shared = join(home, ".agents/skills/reverse-engineer-anything");
-    const claude = join(home, ".claude/skills/reverse-engineer-anything");
+    const shared = join(home, ".agents/skills/openamer-reverse-engineer");
+    const claude = join(home, ".claude/skills/openamer-reverse-engineer");
     for (const root of [shared, claude]) {
       await mkdir(join(root, "references"), { recursive: true });
       await writeFile(join(root, "SKILL.md"), ownedSkillManifest);
@@ -1590,7 +1590,7 @@ describe("client configuration filesystem removal", () => {
     async () => {
       const home = await createTestTempDirectory("rea-uninstall-skill-perm-");
       const parent = join(home, ".agents/skills");
-      const root = join(parent, "reverse-engineer-anything");
+      const root = join(parent, "openamer-reverse-engineer");
       await mkdir(join(root, "references"), { recursive: true });
       await writeFile(join(root, "SKILL.md"), ownedSkillManifest);
       await chmod(parent, 0o555);
@@ -1899,7 +1899,7 @@ describe("uninstall configuration preflight", () => {
     const cursor = join(home, ".cursor/mcp.json");
     const skillMarker = join(
       home,
-      ".agents/skills/reverse-engineer-anything/marker.txt",
+      ".agents/skills/openamer-reverse-engineer/marker.txt",
     );
     const managed = [
       skillMarker,
@@ -1997,7 +1997,7 @@ describe("client configuration changed during uninstall", () => {
     const cursor = join(home, ".cursor/mcp.json");
     const skill = join(
       home,
-      ".agents/skills/reverse-engineer-anything/SKILL.md",
+      ".agents/skills/openamer-reverse-engineer/SKILL.md",
     );
     const cursorConfig = JSON.stringify({
       mcpServers: { rea: { command: "rea", args: ["mcp"] } },
@@ -2147,7 +2147,7 @@ describe("client configuration filesystem failure reporting", () => {
 
   it("reports a managed-path removal failure", async () => {
     const home = await createTestTempDirectory("rea-uninstall-remove-");
-    const skillRoot = join(home, ".agents/skills/reverse-engineer-anything");
+    const skillRoot = join(home, ".agents/skills/openamer-reverse-engineer");
     await mkdir(skillRoot, { recursive: true });
     await writeFile(join(skillRoot, "SKILL.md"), ownedSkillManifest);
     const result = await runUninstall(
@@ -2173,8 +2173,8 @@ describe("client configuration filesystem failure reporting", () => {
     const home = await createTestTempDirectory("rea-uninstall-skills-");
     const customClaudeDirectory = join(home, "claude-config");
     const rootsToRemove = [
-      join(home, ".agents/skills/reverse-engineer-anything"),
-      join(customClaudeDirectory, "skills/reverse-engineer-anything"),
+      join(home, ".agents/skills/openamer-reverse-engineer"),
+      join(customClaudeDirectory, "skills/openamer-reverse-engineer"),
     ];
     await Promise.all(
       rootsToRemove.map(async (path) => {
@@ -2206,10 +2206,10 @@ describe("skill root client identifier labels", () => {
   it("labels each retained or removed skill root by its client identifier", async () => {
     const home = await createTestTempDirectory("rea-uninstall-skill-labels-");
     const customClaudeDirectory = join(home, "claude-config");
-    const sharedRoot = join(home, ".agents/skills/reverse-engineer-anything");
+    const sharedRoot = join(home, ".agents/skills/openamer-reverse-engineer");
     const claudeRoot = join(
       customClaudeDirectory,
-      "skills/reverse-engineer-anything",
+      "skills/openamer-reverse-engineer",
     );
     await mkdir(sharedRoot, { recursive: true });
     await mkdir(claudeRoot, { recursive: true });

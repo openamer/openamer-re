@@ -57,7 +57,7 @@ const skillPath = join(
   profile,
   ".agents",
   "skills",
-  "reverse-engineer-anything",
+  "openamer-reverse-engineer",
   "SKILL.md",
 );
 let clientVersion = null;
@@ -191,7 +191,7 @@ await withVerifierCleanup(async () => {
     assert.equal(await readFile(`${configPath}.rea.backup`, "utf8"), original);
     assert(
       (await readFile(skillPath, "utf8")).includes(
-        "name: reverse-engineer-anything",
+        "name: openamer-reverse-engineer",
       ),
     );
     const target = join(lab, "fixture α测试");
@@ -272,10 +272,10 @@ await withVerifierCleanup(async () => {
           (r) =>
             r.name === "activate_skill" &&
             r.response?.output?.includes(
-              `<activated_skill name="reverse-engineer-anything">`,
+              `<activated_skill name="openamer-reverse-engineer">`,
             ) &&
             r.response.output.includes(
-              join(profile, ".agents", "skills", "reverse-engineer-anything"),
+              join(profile, ".agents", "skills", "openamer-reverse-engineer"),
             ),
         );
         const observed = findClientResult(
@@ -305,7 +305,7 @@ await withVerifierCleanup(async () => {
             {
               functionCall: {
                 name: skill.name,
-                args: { name: "reverse-engineer-anything" },
+                args: { name: "openamer-reverse-engineer" },
               },
             },
           ];

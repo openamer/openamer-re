@@ -43,7 +43,7 @@ const skillPath = join(
   account,
   ".agents",
   "skills",
-  "reverse-engineer-anything",
+  "openamer-reverse-engineer",
   "SKILL.md",
 );
 const cli = join(runtimeRoot, "scripts", "rea.mjs");
@@ -172,7 +172,7 @@ await withVerifierCleanup(async () => {
         const serialized = JSON.stringify(toolMessages);
         skillLoaded ||=
           serialized.includes(
-            '<skill_content name=\\"reverse-engineer-anything\\">',
+            '<skill_content name=\\"openamer-reverse-engineer\\">',
           ) && serialized.includes(dirname(skillPath));
         for (const message of toolMessages) {
           const found = findClientResult(
@@ -207,7 +207,7 @@ await withVerifierCleanup(async () => {
         if (!skillRequested) {
           assert(tools.some((tool) => tool.name === "skill"));
           skillRequested = true;
-          return call("skill", { name: "reverse-engineer-anything" });
+          return call("skill", { name: "openamer-reverse-engineer" });
         }
         assert(
           skillLoaded,
@@ -283,7 +283,7 @@ await withVerifierCleanup(async () => {
     assert(configured.includes("!!js process.cwd()"));
     assert(
       (await readFile(skillPath, "utf8")).includes(
-        "name: reverse-engineer-anything",
+        "name: openamer-reverse-engineer",
       ),
     );
     lifecycle.push("setup");

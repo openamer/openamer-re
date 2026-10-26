@@ -45,7 +45,7 @@ const artifactPath = join(workspace, "evidence.json");
 const skillPath = join(
   client === "pi" ? join(account, ".agents") : selectedProfile,
   "skills",
-  "reverse-engineer-anything",
+  "openamer-reverse-engineer",
   "SKILL.md",
 );
 const verifier = createVerifierRun();
@@ -158,7 +158,7 @@ await withVerifierCleanup(async () => {
     assert.equal(await readFile(`${configPath}.rea.backup`, "utf8"), original);
     assert(
       (await readFile(skillPath, "utf8")).includes(
-        "name: reverse-engineer-anything",
+        "name: openamer-reverse-engineer",
       ),
     );
     const decodeNativeAgentResult = (text) => {
@@ -257,7 +257,7 @@ await withVerifierCleanup(async () => {
             );
           skillLoaded ||=
             serializedTools.includes(skillPath) &&
-            serializedTools.includes("reverse-engineer-anything");
+            serializedTools.includes("openamer-reverse-engineer");
           for (const message of toolMessages) {
             const evidence = findClientResult(
               message.content,
@@ -283,14 +283,14 @@ await withVerifierCleanup(async () => {
           );
           callRequested = true;
           return call(tool.name, {
-            code: `await describeNamespace("rea"); const skill = await tools.read({path:${JSON.stringify(skillPath)}}); const result = await tools.mcp__rea__analyze_javascript_application({input_path:${JSON.stringify(target)},format:"directory"}); if(result.isError) throw new Error(JSON.stringify(result)); const evidence = result.structuredContent ?? JSON.parse(result.content.find(c=>c.type==="text").text); await tools.write({path:${JSON.stringify(artifactPath)},content:JSON.stringify(evidence)}); text({REA_CLIENT_FIXTURE:true,skill_loaded:typeof skill==="string"&&skill.includes("name: reverse-engineer-anything"),catalog:ALL_TOOLS.filter(t=>t.name.startsWith("mcp__rea__")).map(t=>t.name.slice(10))});`,
+            code: `await describeNamespace("rea"); const skill = await tools.read({path:${JSON.stringify(skillPath)}}); const result = await tools.mcp__rea__analyze_javascript_application({input_path:${JSON.stringify(target)},format:"directory"}); if(result.isError) throw new Error(JSON.stringify(result)); const evidence = result.structuredContent ?? JSON.parse(result.content.find(c=>c.type==="text").text); await tools.write({path:${JSON.stringify(artifactPath)},content:JSON.stringify(evidence)}); text({REA_CLIENT_FIXTURE:true,skill_loaded:typeof skill==="string"&&skill.includes("name: openamer-reverse-engineer"),catalog:ALL_TOOLS.filter(t=>t.name.startsWith("mcp__rea__")).map(t=>t.name.slice(10))});`,
           });
         }
         if (!skillRequested) {
           const tool = tools.find((t) => t.name === "skill_view");
           assert(tool, "Hermes skill_view must be available.");
           skillRequested = true;
-          return call(tool.name, { name: "reverse-engineer-anything" });
+          return call(tool.name, { name: "openamer-reverse-engineer" });
         }
         if (!searchRequested) {
           const tool = tools.find((t) => t.name === "tool_search");

@@ -42,10 +42,10 @@ export async function verifyPackagePack({ root, workspace, commands }) {
     throw new Error("package retained a lifecycle-dependent PTY installation");
   if (
     packedManifest.bin?.rea !== "scripts/rea.mjs" ||
-    packedManifest.bin?.["rea-agents"] !== "scripts/rea.mjs"
+    packedManifest.bin?.["openamer-re"] !== "scripts/rea.mjs"
   )
     throw new Error("package did not expose both rea command entry points");
-  if (packedManifest.mcpName !== "io.github.morluto/rea")
+  if (packedManifest.mcpName !== "io.github.openamer/openamer-re")
     throw new Error("package did not retain its MCP Registry ownership marker");
   if (!packedFiles.includes("package/scripts/lib/cli-process-environment.mjs"))
     throw new Error("package omitted the CLI process environment owner");
@@ -59,7 +59,7 @@ export async function verifyPackagePack({ root, workspace, commands }) {
     await commands.exec("tar", [
       "-xOf",
       tarball,
-      "package/skills/reverse-engineer-anything/SKILL.md",
+      "package/skills/openamer-reverse-engineer/SKILL.md",
     ])
   ).stdout;
   const skillMetadata = parseSkillManifestMetadata(skill);

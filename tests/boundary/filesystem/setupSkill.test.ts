@@ -291,7 +291,7 @@ describe("skill directory admission", () => {
 describe("canonical skill transaction", () => {
   it("does not roll back files when backup preparation fails", async () => {
     const home = await createTestTempDirectory("rea-skill-backup-failure-");
-    const root = join(home, ".agents/skills/reverse-engineer-anything");
+    const root = join(home, ".agents/skills/openamer-reverse-engineer");
     const manifest = join(root, "SKILL.md");
     const connection = join(root, "references/connection-and-recovery.md");
     const original = "operator-owned manifest bytes\n";
@@ -415,7 +415,7 @@ describe("canonical skill discovery", () => {
       const home = await createTestTempDirectory("rea-skill-unreadable-");
       const destination = join(
         home,
-        ".agents/skills/reverse-engineer-anything/SKILL.md",
+        ".agents/skills/openamer-reverse-engineer/SKILL.md",
       );
       const original = "existing private skill bytes\n";
       await mkdir(dirname(destination), { recursive: true });
@@ -443,7 +443,7 @@ describe("canonical skill discovery", () => {
     const skillsDirectory = join(configDirectory, "skills");
     const claudeSkill = join(
       skillsDirectory,
-      "reverse-engineer-anything/SKILL.md",
+      "openamer-reverse-engineer/SKILL.md",
     );
     await mkdir(configDirectory, { recursive: true });
     await writeFile(
@@ -482,7 +482,7 @@ describe("canonical skill discovery", () => {
     ).toBe(false);
     await expect(access(claudeSkill)).resolves.toBeUndefined();
     await expect(
-      access(join(home, ".agents/skills/reverse-engineer-anything")),
+      access(join(home, ".agents/skills/openamer-reverse-engineer")),
     ).rejects.toMatchObject({ code: "ENOENT" });
     expect(
       (
@@ -498,12 +498,12 @@ describe("canonical skill discovery", () => {
     const home = await createTestTempDirectory("rea-mixed-skill-");
     const sharedSkill = join(
       home,
-      ".agents/skills/reverse-engineer-anything/SKILL.md",
+      ".agents/skills/openamer-reverse-engineer/SKILL.md",
     );
     const claudeSkills = join(home, ".claude", "skills");
     const claudeSkill = join(
       claudeSkills,
-      "reverse-engineer-anything/SKILL.md",
+      "openamer-reverse-engineer/SKILL.md",
     );
     const host = systemDoctorHost({
       environment: { HOME: home, USERPROFILE: home },
@@ -540,7 +540,7 @@ describe("canonical skill transaction", () => {
     const home = await createTestTempDirectory("rea-skill-test-");
     const destination = join(
       home,
-      ".agents/skills/reverse-engineer-anything/SKILL.md",
+      ".agents/skills/openamer-reverse-engineer/SKILL.md",
     );
     const sibling = join(home, ".agents/skills/unrelated/SKILL.md");
     const nativeGuide = join(
@@ -566,7 +566,7 @@ describe("canonical skill transaction", () => {
     expect(installedSkill).toBe(
       await readFile(
         new URL(
-          "../../../skills/reverse-engineer-anything/SKILL.md",
+          "../../../skills/openamer-reverse-engineer/SKILL.md",
           import.meta.url,
         ),
         "utf8",
@@ -594,7 +594,7 @@ describe("canonical skill transaction", () => {
       expect(installed).toBe(
         await readFile(
           new URL(
-            `../../../skills/reverse-engineer-anything/references/${reference}`,
+            `../../../skills/openamer-reverse-engineer/references/${reference}`,
             import.meta.url,
           ),
           "utf8",
@@ -615,7 +615,7 @@ describe("canonical skill transaction", () => {
       await readFile(
         join(
           home,
-          ".agents/skills/reverse-engineer-anything/references/javascript-applications.md",
+          ".agents/skills/openamer-reverse-engineer/references/javascript-applications.md",
         ),
         "utf8",
       ),
@@ -647,7 +647,7 @@ describe("canonical skill transaction", () => {
     const records = await Promise.all(
       paths.map(async (path) => {
         const bytes = await readFile(
-          join(home, ".agents/skills/reverse-engineer-anything", path),
+          join(home, ".agents/skills/openamer-reverse-engineer", path),
         );
         return `${path}\0${createHash("sha256").update(bytes).digest("hex")}\n`;
       }),
@@ -667,7 +667,7 @@ describe("canonical skill transaction", () => {
         ),
       );
     expect(manifest.skill_digests).toContainEqual({
-      skill_id: "reverse-engineer-anything",
+      skill_id: "openamer-reverse-engineer",
       sha256: createHash("sha256").update(records.join("")).digest("hex"),
     });
   });
@@ -677,7 +677,7 @@ it("doctor verifies installed instructions and references even when metadata is 
   const home = await createTestTempDirectory("rea-skill-doctor-");
   const destination = join(
     home,
-    ".agents/skills/reverse-engineer-anything/SKILL.md",
+    ".agents/skills/openamer-reverse-engineer/SKILL.md",
   );
   const reference = join(
     dirname(destination),
@@ -730,14 +730,14 @@ it("reads installed frontmatter metadata without treating body examples as ident
   const manifest = join(destination.path, "SKILL.md");
   await writeFile(
     manifest,
-    "---\nname: reverse-engineer-anything\nmetadata:\n  version: '49'\n  tool_count: -1\n---\n\n```yaml\nmetadata:\n  version: \"counterfeit\"\n  tool_count: 42\n```\n",
+    "---\nname: openamer-reverse-engineer\nmetadata:\n  version: '49'\n  tool_count: -1\n---\n\n```yaml\nmetadata:\n  version: \"counterfeit\"\n  tool_count: 42\n```\n",
   );
   expect(await readInstalledSkillIdentity(home, ["claude_code"])).toMatchObject(
     { version: "49", toolCount: null, canonical: false },
   );
   await writeFile(
     manifest,
-    '---\nname: reverse-engineer-anything\n---\n\n```yaml\nmetadata:\n  version: "counterfeit"\n  tool_count: 42\n```\n',
+    '---\nname: openamer-reverse-engineer\n---\n\n```yaml\nmetadata:\n  version: "counterfeit"\n  tool_count: 42\n```\n',
   );
   expect(await readInstalledSkillIdentity(home, ["claude_code"])).toMatchObject(
     { version: null, toolCount: null, canonical: false },

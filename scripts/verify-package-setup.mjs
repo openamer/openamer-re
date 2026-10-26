@@ -351,12 +351,12 @@ const assertCodexSymlink = async ({
 const assertSkill = async ({ skillPath, siblingSkillPath, root }) => {
   const skill = await readFile(skillPath, "utf8");
   const canonicalSkill = await readFile(
-    join(root, "skills/reverse-engineer-anything/SKILL.md"),
+    join(root, "skills/openamer-reverse-engineer/SKILL.md"),
     "utf8",
   );
   if (skill !== canonicalSkill)
     throw new Error("packaged skill did not match its canonical source");
-  const canonicalRoot = join(root, "skills/reverse-engineer-anything");
+  const canonicalRoot = join(root, "skills/openamer-reverse-engineer");
   for (const reference of await readdir(join(canonicalRoot, "references"))) {
     const installed = await readFile(
       join(dirname(skillPath), "references", reference),
@@ -591,7 +591,7 @@ export async function verifyPackageSetup({
   await verifyMcpAdd({ commands, cli, environment, npxLog });
   const skillPath = join(
     home,
-    ".agents/skills/reverse-engineer-anything/SKILL.md",
+    ".agents/skills/openamer-reverse-engineer/SKILL.md",
   );
   const siblingSkillPath = join(home, ".agents/skills/unrelated/SKILL.md");
   if (supportedSetupHost) {

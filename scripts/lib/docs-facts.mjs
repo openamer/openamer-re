@@ -96,7 +96,7 @@ export const skillReferenceIssues = async (skillRoot) => {
 /** Return every caller-visible documentation mismatch against canonical facts. */
 export const documentationFactIssues = async (root, catalog) => {
   const issues = await skillReferenceIssues(
-    join(root, "skills/reverse-engineer-anything"),
+    join(root, "skills/openamer-reverse-engineer"),
   );
   const translatedFolder = join(root, "docs/readme");
   let translatedNames = [];

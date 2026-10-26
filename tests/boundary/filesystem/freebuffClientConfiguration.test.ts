@@ -149,7 +149,7 @@ describe("FreeBuff configuration paths", () => {
     expect(skillDestinations("/home/a", ["freebuff"])).toEqual([
       {
         client: "shared",
-        path: join("/home/a", ".agents", "skills", "reverse-engineer-anything"),
+        path: join("/home/a", ".agents", "skills", "openamer-reverse-engineer"),
       },
     ]);
   });

@@ -41,7 +41,7 @@ cliTest.for([
       root,
       agentsRoot,
       "skills",
-      "reverse-engineer-anything",
+      "openamer-reverse-engineer",
     );
     const skill = join(skillRoot, "SKILL.md");
     await mkdir(home);
@@ -84,7 +84,7 @@ cliTest.for([
     expect(text).toContain("rea-mcp");
     expect(await readFile(`${config}.rea.backup`, "utf8")).toBe(original);
     expect(await readFile(skill, "utf8")).toContain(
-      "name: reverse-engineer-anything",
+      "name: openamer-reverse-engineer",
     );
     const doctor = await run(["doctor", "--client", "dsh", "--skill"]);
     expect(doctor.exitCode).toBe(0);
@@ -121,7 +121,7 @@ cliTest(
     const config = join(profile, "cordis.patch.yml");
     const skill = join(
       home,
-      ".agents/skills/reverse-engineer-anything/SKILL.md",
+      ".agents/skills/openamer-reverse-engineer/SKILL.md",
     );
     await mkdir(profile);
     const original = `# caller home patch

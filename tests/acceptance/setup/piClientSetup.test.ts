@@ -212,7 +212,7 @@ cliTest(
     const config = join(agent, "mcp.json");
     const skill = join(
       home,
-      ".agents/skills/reverse-engineer-anything/SKILL.md",
+      ".agents/skills/openamer-reverse-engineer/SKILL.md",
     );
     const original =
       '{ "mcpServers": { "other": { "command": "other-server" } }, "autoEnableCodemode": false }\n';
@@ -290,7 +290,7 @@ cliTest(
     });
     expect(await readFile(`${config}.rea.backup`, "utf8")).toBe(original);
     expect(await readFile(skill, "utf8")).toContain(
-      "reverse-engineer-anything",
+      "openamer-reverse-engineer",
     );
 
     const doctor = await run(["doctor", "--client", "pi", "--json"]);

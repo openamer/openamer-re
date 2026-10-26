@@ -38,7 +38,7 @@ const skillDirectory = join(
   account,
   ".agents",
   "skills",
-  "reverse-engineer-anything",
+  "openamer-reverse-engineer",
 );
 const expectedNames = TOOL_CONTRACTS.map((tool) => "rea__" + tool.name).sort();
 let clientVersion = null;

@@ -975,7 +975,7 @@ jobs:
           path: |
             docs/public/product-catalog.json
             docs/verification/managed-conformance-*.json
-            skills/reverse-engineer-anything
+            skills/openamer-reverse-engineer
           if-no-files-found: error
 
   # Provider lanes wait for fast static and the portable build, not deep static.

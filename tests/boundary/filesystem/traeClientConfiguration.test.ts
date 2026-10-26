@@ -65,14 +65,14 @@ describe("Trae configuration paths", () => {
     expect(
       skillDestinations("/home/a", ["trae"]).map(({ path }) => path),
     ).toEqual([
-      join("/home/a", ".trae", "skills", "reverse-engineer-anything"),
+      join("/home/a", ".trae", "skills", "openamer-reverse-engineer"),
     ]);
     expect(
       skillDestinations("C:\\Users\\a", ["trae"], {}, "win32").map(
         ({ path }) => path,
       ),
     ).toEqual([
-      join("C:\\Users\\a", ".trae", "skills", "reverse-engineer-anything"),
+      join("C:\\Users\\a", ".trae", "skills", "openamer-reverse-engineer"),
     ]);
   });
 });

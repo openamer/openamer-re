@@ -222,7 +222,7 @@ schema and samples 20 rows. Select `columns` to avoid irrelevant or large cells,
 and request `schema_scope: "database"` only for complete schema details.
 Choose `row_limit` when a finite sample is useful and keep truncation and
 unspecified row order explicit. Virtual tables, shadow tables and views are
-schema facts, not row-read targets. REA inspects private copies and leaves
+schema facts, not row-read targets. OpenAmer RE inspects private copies and leaves
 the source files untouched; obtain a coherent quiescent database/WAL snapshot
 before inspection. See [SQLite snapshots](https://github.com/morluto/rea/blob/main/docs/sqlite-databases.md).
 
@@ -324,7 +324,7 @@ run, use `observe_native_calls` with explicit breakpoints and a bounded
 runs and may change files or use the network. Hardened-runtime targets need the
 `get-task-allow` entitlement.
 Function breakpoints use exact LLDB runtime names: pass an `inspect_macho` export
-or import `runtime_name` (`main`), not its symbol-table `name` (`_main`). REA does
+or import `runtime_name` (`main`), not its symbol-table `name` (`_main`). OpenAmer RE does
 not translate breakpoint names. Set `module` to the image
 file name when selecting that image only; otherwise loaded system images also
 match. Inspect retained locations and module paths before attributing a call.
@@ -356,15 +356,15 @@ bridge startup, and readiness. The default 330,000 ms is configurable through
 When the error names `ghidra.startup_timeout_ms`, call
 `update_analysis_settings` with `action: "set"` and a larger value within the
 reported bounds. Resolve retained cleanup before the next startup attempt.
-No REA restart is needed; an already accepted startup keeps its original
+No OpenAmer RE restart is needed; an already accepted startup keeps its original
 budget. A new attempt repeats import. Preserve useful Evidence before closing
 and reopening the target when remediation requires that lifecycle step.
 
 For a per-function timeout, update `ghidra.decompile_timeout_seconds` and retry
 the same function on the existing Program. Explicit `null` removes that
 per-function deadline. Inspection is optional when the error supplies the
-setting and bounds. Runtime updates disappear when REA exits; environment
-changes only seed future REA processes.
+setting and bounds. Runtime updates disappear when OpenAmer RE exits; environment
+changes only seed future OpenAmer RE processes.
 
 The client's tool-call deadline must allow startup plus the requested query;
 server settings and progress notifications cannot override it. CLI analysis
@@ -394,7 +394,7 @@ the framing LF still fits. Cutter measures, signs, and writes a fitting
 response in bounded chunks. The bridge searches only the newly read bytes
 for the framing LF. The client unescapes each socket chunk into one response
 string before parsing it, so this ceiling does not keep the paged wire frame
-and another concatenated copy. Invalid values are configuration errors and do not fall back to 16777216. Set the variable in the environment that starts REA, restart REA,
+and another concatenated copy. Invalid values are configuration errors and do not fall back to 16777216. Set the variable in the environment that starts OpenAmer RE, restart OpenAmer RE,
 and start Hopper or Cutter from that same environment. An out-of-band bridge
 without the setting stays at 16777216 bytes. The client reports that mismatch
 during discovery only after the hello proves a live authenticated bridge, and
@@ -478,7 +478,7 @@ that a class is a root class or has no ivars.
 
 ## Managed PE/CLI
 
-Start with `inspect_managed_artifact`. REA's canonical managed inspection is
+Start with `inspect_managed_artifact`. OpenAmer RE's canonical managed inspection is
 execution-free: do not claim it loaded, reflected, executed, or resolved the
 assembly. Keep managed/native boundaries and unavailable reconstruction facts
 explicit. A bring-your-own reconstruction oracle is separate from the canonical
@@ -515,11 +515,11 @@ inference.
 
 NativeAOT images can be PE/COFF, ELF, or Mach-O executables and shared
 libraries. Use file bytes and loader metadata rather than suffixes to identify
-them. For packaged apps, inventory/extract with REA's artifact tools and retain
+them. For packaged apps, inventory/extract with OpenAmer RE's artifact tools and retain
 the exact contained image identity. PDB, ELF debug, or dSYM sidecars are
 additional evidence only when the provider accepts and matches them.
 
-REA has a built-in read-only snapshot parser for x64 PE targets with .NET 8 RTR
+OpenAmer RE has a built-in read-only snapshot parser for x64 PE targets with .NET 8 RTR
 9.1 metadata. An optional headless Ghidra adapter adds database annotations and
 broader metadata recovery on Linux; it requires an explicitly configured
 NativeAOT JAR. These are separate routes. The built-in parser also runs on
@@ -556,7 +556,7 @@ provides them.
 Use `extract_artifact` when materialized files from a supported format are needed.
 It extracts the active target and accepts optional `integrity_policy`; see the [MCP contracts](https://github.com/morluto/rea/blob/main/docs/mcp-contracts.md).
 It materializes all regular files into a fresh temporary directory chosen by
-REA. Symlinks and encrypted entries are inventory facts, not extractable files.
+OpenAmer RE. Symlinks and encrypted entries are inventory facts, not extractable files.
 The result reports the materialized directory; callers do not choose the
 destination. No separate permission grant is needed.
 
@@ -566,7 +566,7 @@ flag. Unsupported hosts or mount failures remain explicit limitations; do not
 claim child inventory when only root identity is available. DMG extraction is
 unavailable through `extract_artifact`. To access DMG files on macOS, create a
 read-only mount with your own tools, select files from that mount for analysis,
-and detach the mount you created when finished. REA's inspection mount is
+and detach the mount you created when finished. OpenAmer RE's inspection mount is
 temporary, not a retained export of the image's contents.
 
 For headerless DOS COM, explicitly open with `format: "dos-com"` (CLI

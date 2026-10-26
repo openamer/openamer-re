@@ -36,11 +36,11 @@ cliTest.skipIf(process.platform === "win32")(
     await writeFile(lexicalConfig, sentinel);
     const manifest = join(
       home,
-      ".agents/skills/reverse-engineer-anything/SKILL.md",
+      ".agents/skills/openamer-reverse-engineer/SKILL.md",
     );
     const lexicalManifest = join(
       root,
-      ".agents/skills/reverse-engineer-anything/SKILL.md",
+      ".agents/skills/openamer-reverse-engineer/SKILL.md",
     );
     await mkdir(dirname(manifest), { recursive: true });
     await mkdir(dirname(lexicalManifest), { recursive: true });
@@ -79,7 +79,7 @@ cliTest.skipIf(process.platform === "win32")(
     expect(registered.servers.other).toMatchObject({ command: "other-server" });
     expect(registered.servers.rea).toBeDefined();
     const installed = await readFile(manifest, "utf8");
-    expect(installed).toContain("name: reverse-engineer-anything");
+    expect(installed).toContain("name: openamer-reverse-engineer");
     expect(await readFile(`${config}.rea.backup`, "utf8")).toBe(original);
     expect(await readFile(`${manifest}.rea.backup`, "utf8")).toBe(
       originalSkill,
@@ -119,7 +119,7 @@ cliTest.skipIf(process.platform === "win32")(
     await mkdir(join(selected, "nested"), { recursive: true });
     await symlink(join(selected, "nested"), join(root, "alias"));
     const home = `${root}/alias/..`;
-    const relative = ".agents/skills/reverse-engineer-anything";
+    const relative = ".agents/skills/openamer-reverse-engineer";
     const skill = join(selected, relative);
     const lexicalSkill = join(root, relative);
     const original = "previous selected instructions\n";
@@ -155,7 +155,7 @@ cliTest.skipIf(process.platform === "win32")(
       appliedActions: ["installed_skill"],
     });
     const installed = await readFile(join(skill, "SKILL.md"), "utf8");
-    expect(installed).toContain("name: reverse-engineer-anything");
+    expect(installed).toContain("name: openamer-reverse-engineer");
     const installedReference = await readFile(join(skill, reference), "utf8");
     expect(installedReference).not.toBe(oldReference);
     expect(await readFile(join(skill, "SKILL.md.rea.backup"), "utf8")).toBe(

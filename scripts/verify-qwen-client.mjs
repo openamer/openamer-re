@@ -201,7 +201,7 @@ await withVerifierCleanup(async () => {
       prefix: `${client}-${mode}`,
       onRequest: async ({ body, tools, requestIndex }) => {
         skillSeen ||= JSON.stringify(body.messages ?? []).includes(
-          "reverse-engineer-anything",
+          "openamer-reverse-engineer",
         );
         const messages = (body.messages ?? []).map((message) => ({
           role: message.role,
@@ -219,7 +219,7 @@ await withVerifierCleanup(async () => {
             (message) => message.role === "tool" && message.callId === callId,
           )?.text ?? "";
         selectedSkillLoaded ||= messageText.includes(
-          join(sharedSkills, "reverse-engineer-anything"),
+          join(sharedSkills, "openamer-reverse-engineer"),
         );
         const toolText = JSON.stringify(
           (body.messages ?? []).filter((m) => m.role === "tool"),
@@ -297,7 +297,7 @@ await withVerifierCleanup(async () => {
           finalSeen = true;
         } else if (skill && !skillRequested) {
           skillRequested = true;
-          message = call(skill.name, { skill: "reverse-engineer-anything" });
+          message = call(skill.name, { skill: "openamer-reverse-engineer" });
         } else if (persisted && shell) {
           artifactPath = persisted[1];
           assert(

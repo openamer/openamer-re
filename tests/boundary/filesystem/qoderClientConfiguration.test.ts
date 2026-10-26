@@ -58,13 +58,13 @@ describe("Qoder configuration paths", () => {
     expect(
       skillDestinations("/home/a", ["qoder"]).map(({ path }) => path),
     ).toEqual([
-      join("/home/a", ".qoder", "skills", "reverse-engineer-anything"),
+      join("/home/a", ".qoder", "skills", "openamer-reverse-engineer"),
     ]);
     expect(
       skillDestinations("/home/a", ["qoder"], {
         QODER_CONFIG_DIR: "/opt/qoder",
       }).map(({ path }) => path),
-    ).toEqual([join("/opt/qoder", "skills", "reverse-engineer-anything")]);
+    ).toEqual([join("/opt/qoder", "skills", "openamer-reverse-engineer")]);
   });
 });
 

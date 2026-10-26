@@ -48,7 +48,7 @@ const seedReadmeFactFixture = async (directory: string) => {
     await mkdir(dirname(destination), { recursive: true });
     await copyFile(join(root, path), destination);
   }
-  await mkdir(join(directory, "skills/reverse-engineer-anything"), {
+  await mkdir(join(directory, "skills/openamer-reverse-engineer"), {
     recursive: true,
   });
 };

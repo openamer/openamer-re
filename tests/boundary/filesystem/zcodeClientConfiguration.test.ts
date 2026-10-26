@@ -58,7 +58,7 @@ describe("ZCode configuration paths", () => {
     expect(
       skillDestinations("/home/a", ["zcode"]).map(({ path }) => path),
     ).toEqual([
-      join("/home/a", ".zcode", "skills", "reverse-engineer-anything"),
+      join("/home/a", ".zcode", "skills", "openamer-reverse-engineer"),
     ]);
   });
 });

@@ -542,13 +542,13 @@ describe("MSIX Claude Desktop uninstall", () => {
     const manifest = join(
       agents,
       "skills",
-      "reverse-engineer-anything",
+      "openamer-reverse-engineer",
       "SKILL.md",
     );
     await mkdir(dirname(manifest), { recursive: true });
     await writeFile(
       manifest,
-      "---\nname: reverse-engineer-anything\n---\nmanaged fixture\n",
+      "---\nname: openamer-reverse-engineer\n---\nmanaged fixture\n",
     );
     const environment = { ...env, DSH_AGENTS_HOME: agents };
     const result = await runUninstall(

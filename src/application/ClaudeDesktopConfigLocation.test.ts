@@ -697,7 +697,7 @@ describe("writes from a redirected AppData view", () => {
 
   it("compares aliases through the existing parent of a new destination", () => {
     const alias = join(home, "skill-alias");
-    const target = join(alias, "skills", "reverse-engineer-anything");
+    const target = join(alias, "skills", "openamer-reverse-engineer");
     const blocker = redirectedWriteBlocker(
       view,
       [target],

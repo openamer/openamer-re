@@ -37,7 +37,7 @@ const skillDirectory = join(
   account,
   ".agents",
   "skills",
-  "reverse-engineer-anything",
+  "openamer-reverse-engineer",
 );
 const expectedDevices = TOOL_CONTRACTS.map(
   (tool) => "mcp__rea_" + tool.name,
@@ -130,7 +130,7 @@ await withVerifierCleanup(async () => {
         if (requestIndex === 1)
           return call(requestIndex, "read", {
             i: "Load REA skill",
-            path: "skill://reverse-engineer-anything:raw",
+            path: "skill://openamer-reverse-engineer:raw",
           });
         assert(
           expectedSkillBody !== undefined &&

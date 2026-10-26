@@ -48,10 +48,10 @@ const { createCompletionLedgerArtifacts } = await importVerifierSource(
   import.meta.url,
 );
 const skillDigest = await directoryDigest(
-  join(root, "skills/reverse-engineer-anything"),
+  join(root, "skills/openamer-reverse-engineer"),
 );
 const generated = createCompletionLedgerArtifacts(portableCompletionReport, [
-  { skill_id: "reverse-engineer-anything", sha256: skillDigest },
+  { skill_id: "openamer-reverse-engineer", sha256: skillDigest },
 ]);
 
 if (!check) await mkdir(outputRoot, { recursive: true });

@@ -200,7 +200,7 @@ cliTest(
     const home = await createTestTempDirectory("rea-hermes-cli-");
     const profile = join(home, "profile");
     const config = join(profile, "config.yaml");
-    const skill = join(profile, "skills/reverse-engineer-anything/SKILL.md");
+    const skill = join(profile, "skills/openamer-reverse-engineer/SKILL.md");
     const original =
       "# user settings\nmodel: custom\nmcp_servers:\n  other:\n    command: other-server\n";
     await mkdir(profile);
@@ -229,7 +229,7 @@ cliTest(
       plannedActions: expect.arrayContaining([
         expect.objectContaining({ target: config }),
         expect.objectContaining({
-          target: join(profile, "skills/reverse-engineer-anything"),
+          target: join(profile, "skills/openamer-reverse-engineer"),
         }),
       ]),
     });
@@ -253,10 +253,10 @@ cliTest(
     });
     expect(await readFile(config + ".rea.backup", "utf8")).toBe(original);
     expect(await readFile(skill, "utf8")).toContain(
-      "reverse-engineer-anything",
+      "openamer-reverse-engineer",
     );
     await expect(
-      access(join(home, ".agents/skills/reverse-engineer-anything/SKILL.md")),
+      access(join(home, ".agents/skills/openamer-reverse-engineer/SKILL.md")),
     ).rejects.toMatchObject({ code: "ENOENT" });
     const doctor = await run([
       "doctor",
@@ -339,7 +339,7 @@ for (const selection of ["default", "custom", "suffix", "explicit"] as const) {
         plannedActions: expect.arrayContaining([
           expect.objectContaining({ target: config }),
           expect.objectContaining({
-            target: join(profile, "skills", "reverse-engineer-anything"),
+            target: join(profile, "skills", "openamer-reverse-engineer"),
           }),
         ]),
       });
@@ -361,11 +361,11 @@ for (const selection of ["default", "custom", "suffix", "explicit"] as const) {
       const skill = join(
         profile,
         "skills",
-        "reverse-engineer-anything",
+        "openamer-reverse-engineer",
         "SKILL.md",
       );
       expect(await readFile(skill, "utf8")).toContain(
-        "name: reverse-engineer-anything",
+        "name: openamer-reverse-engineer",
       );
       if (selection === "custom") {
         const doctor = await run([
@@ -401,7 +401,7 @@ for (const selection of ["default", "custom", "suffix", "explicit"] as const) {
         code: "ENOENT",
       });
       await expect(
-        access(join(root, "skills", "reverse-engineer-anything")),
+        access(join(root, "skills", "openamer-reverse-engineer")),
       ).rejects.toMatchObject({ code: "ENOENT" });
     },
   );
@@ -490,7 +490,7 @@ cliTest.skipIf(process.platform === "win32")(
     onTestFinished(() => removeTestWorkspace(profile));
     const override = `~${account.username}//${relative(account.homedir, profile)}`;
     const config = join(profile, "config.yaml");
-    const skill = join(profile, "skills/reverse-engineer-anything/SKILL.md");
+    const skill = join(profile, "skills/openamer-reverse-engineer/SKILL.md");
     const original =
       "# owned fixture\nmodel: custom\nmcp_servers:\n  other:\n    command: other-server\n";
     await writeFile(config, original);
@@ -518,7 +518,7 @@ cliTest.skipIf(process.platform === "win32")(
       plannedActions: expect.arrayContaining([
         expect.objectContaining({ target: config }),
         expect.objectContaining({
-          target: join(profile, "skills/reverse-engineer-anything"),
+          target: join(profile, "skills/openamer-reverse-engineer"),
         }),
       ]),
     });
@@ -536,7 +536,7 @@ cliTest.skipIf(process.platform === "win32")(
     });
     expect(await readFile(`${config}.rea.backup`, "utf8")).toBe(original);
     expect(await readFile(skill, "utf8")).toContain(
-      "name: reverse-engineer-anything",
+      "name: openamer-reverse-engineer",
     );
     expect(
       (await run(["doctor", "--client", "hermes", "--skill", "--json"])).json,
@@ -599,7 +599,7 @@ cliTest(
       code: "ENOENT",
     });
     await expect(
-      access(join(home, ".agents/skills/reverse-engineer-anything")),
+      access(join(home, ".agents/skills/openamer-reverse-engineer")),
     ).rejects.toMatchObject({ code: "ENOENT" });
   },
 );

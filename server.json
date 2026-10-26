@@ -1,11 +1,11 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.morluto/rea",
-  "title": "REA",
-  "description": "Reverse engineer anything from your terminal or agent with one CLI and MCP server.",
-  "websiteUrl": "https://github.com/morluto/rea",
+  "name": "io.github.openamer/openamer-re",
+  "title": "OpenAmer RE",
+  "description": "Reverse engineer anything from your terminal or agent with one CLI and MCP server. OpenAmer RE is a fork of REA (MIT).",
+  "websiteUrl": "https://github.com/openamer/openamer-re",
   "repository": {
-    "url": "https://github.com/morluto/rea",
+    "url": "https://github.com/openamer/openamer-re",
     "source": "github"
   },
   "version": "6.8.0",
@@ -13,7 +13,7 @@
     {
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
-      "identifier": "rea-agents",
+      "identifier": "openamer-re",
       "version": "6.8.0",
       "runtimeHint": "npx",
       "transport": {
