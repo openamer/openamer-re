@@ -19,6 +19,7 @@ import { describe, expect, it, vi } from "vitest";
 import { createTestTempDirectory } from "../../fixtures/temporaryDirectory.js";
 
 import {
+  MANAGED_SKILL_FILES,
   canonicalSkillNeedsInstall,
   existingSkillDestinations,
   installCanonicalSkill,
@@ -605,7 +606,7 @@ describe("canonical skill transaction", () => {
       );
     }
     expect(installedSkill).toContain(
-      "use normal repository tools and do not run REA",
+      "use normal repository tools and do not run OpenAmer RE",
     );
     expect(installedSkill).toContain(
       `tool_count: ${String(TOOL_CONTRACTS.length)}`,
@@ -634,16 +635,11 @@ describe("canonical skill transaction", () => {
       ok: true,
       value: "installed",
     });
-    const paths = [
-      "SKILL.md",
-      "references/android-applications.md",
-      "references/connection-and-recovery.md",
-      "references/environments.md",
-      "references/evidence-workflows.md",
-      "references/javascript-applications.md",
-      "references/native-and-artifacts.md",
-      "references/runtime-observation.md",
-    ];
+    // Mirror the ledger generator's directory walk: each level is ordered by
+    // name, so the manifest digest covers exactly the managed skill files.
+    const paths = [...MANAGED_SKILL_FILES].sort((left, right) =>
+      left < right ? -1 : left > right ? 1 : 0,
+    );
     const records = await Promise.all(
       paths.map(async (path) => {
         const bytes = await readFile(

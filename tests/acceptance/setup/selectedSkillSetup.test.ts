@@ -64,7 +64,18 @@ cliTest.for(["root", "references"] as const)(
         code: "skill_install_failed",
         appliedActions: [],
       });
-      expect(result.stdout).toContain(link);
+      // The refusal names the linked path structurally. Matching stdout text
+      // cannot work here: --json escapes every Windows backslash, so the raw
+      // path never appears verbatim in the serialized output.
+      const refusal = result.json as {
+        remediation?: string;
+        doctor?: {
+          identity?: { skill?: { issues?: { path?: string }[] } };
+        };
+      };
+      expect(refusal.doctor?.identity?.skill?.issues ?? []).toContainEqual(
+        expect.objectContaining({ path: link }),
+      );
       expect(result.stdout).toContain("--skill=false");
     }
     const doctor = await run(["doctor", "--client", "claude_code", "--skill"]);
@@ -73,7 +84,14 @@ cliTest.for(["root", "references"] as const)(
       healthy: false,
       identity: { skill: { state: "unmanaged" } },
     });
-    expect(doctor.stdout).toContain(link);
+    // Same reason as above: assert on the structured issue path, not on the
+    // serialized stdout, which escapes Windows backslashes.
+    const diagnosed = doctor.json as {
+      identity?: { skill?: { issues?: { path?: string }[] } };
+    };
+    expect(diagnosed.identity?.skill?.issues ?? []).toContainEqual(
+      expect.objectContaining({ path: link }),
+    );
     expect((await lstat(link)).isSymbolicLink()).toBe(true);
   },
 );

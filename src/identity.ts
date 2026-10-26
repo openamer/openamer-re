@@ -14,7 +14,7 @@ export const PRODUCT_IDENTITY = {
   packageVersion: PACKAGE_METADATA.version,
   cliBinary: "oare",
   mcpCommand: `npx -y ${PACKAGE_METADATA.name}@${PACKAGE_METADATA.version} mcp`,
-  mcpServerKey: "openamer-re",
+  mcpServerKey: "rea",
   skillName: "openamer-reverse-engineer",
   skillVersion: PACKAGE_METADATA.skillVersion,
   configFileName: "openamer-re.json",

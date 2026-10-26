@@ -237,6 +237,32 @@ export interface ClientRegistrationCommandFacts {
     | undefined;
 }
 
+/**
+ * Registrations written by upstream REA, this fork's parent, name a different
+ * package and a different binary. A fork that did not recognize them would
+ * report every pre-existing registration as foreign and refuse to repair or
+ * remove it, so both spellings are owned here. Keep this list additive: it is
+ * the migration surface between the two products.
+ */
+const LEGACY_PACKAGE_NAMES = ["rea-agents"] as const;
+const LEGACY_CLI_BINARIES = ["rea"] as const;
+
+const isLegacyPackageReference = (reference: string): boolean =>
+  LEGACY_PACKAGE_NAMES.some((legacy) => {
+    if (reference === legacy || reference === `${legacy}@latest`) return true;
+    const prefix = `${legacy}@`;
+    return (
+      reference.startsWith(prefix) &&
+      valid(reference.slice(prefix.length)) !== null
+    );
+  });
+
+const isOwnedPackageReference = (reference: string): boolean =>
+  reference === PRODUCT_IDENTITY.packageName ||
+  reference === PRODUCT_IDENTITY.packageSpecifier ||
+  reference === PRODUCT_IDENTITY.registrationPackageSpecifier ||
+  isLegacyPackageReference(reference);
+
 /** Parse package identity once, retaining exact source spelling and version facts. */
 export const inspectClientRegistrationCommand = (
   command: readonly string[],
@@ -249,11 +275,7 @@ export const inspectClientRegistrationCommand = (
       ? reference.slice(prefix.length)
       : undefined;
     const normalized = version === undefined ? null : valid(version);
-    const owned =
-      reference === PRODUCT_IDENTITY.packageName ||
-      reference === PRODUCT_IDENTITY.packageSpecifier ||
-      reference === PRODUCT_IDENTITY.registrationPackageSpecifier ||
-      normalized !== null;
+    const owned = normalized !== null || isOwnedPackageReference(reference);
     return {
       identity: owned ? "owned" : "foreign",
       launch: "package_runner",
@@ -316,7 +338,10 @@ const inspectDirectRegistrationCommand = (
   }
   if (command.length === 2 && command[1] === "mcp") {
     const executable = command[0] ?? "";
-    if (executable === PRODUCT_IDENTITY.cliBinary)
+    if (
+      executable === PRODUCT_IDENTITY.cliBinary ||
+      LEGACY_CLI_BINARIES.some((legacy) => legacy === executable)
+    )
       return {
         identity: "owned",
         launch: "direct",

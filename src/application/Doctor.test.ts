@@ -970,7 +970,7 @@ describe("doctor scoped readiness", () => {
             {
               client: "codex",
               config_path: "/home/user/.codex/config.toml",
-              command: ["rea", "mcp"],
+              command: ["oare", "mcp"],
               state: "aligned",
               remediation: null,
             },

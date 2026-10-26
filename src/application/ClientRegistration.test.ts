@@ -30,7 +30,7 @@ it.each([42, null, {}])(
   (value) => {
     const environment = Object.fromEntries([["__proto__", value]]);
     const result = parseClientRegistration(
-      { type: "local", command: ["rea", "mcp"], environment },
+      { type: "local", command: ["oare", "mcp"], environment },
       client,
     );
     expect(result.ok).toBe(false);
