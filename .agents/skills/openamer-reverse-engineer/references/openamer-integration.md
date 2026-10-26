@@ -16,6 +16,19 @@ Evidence-to-memory bridge. Nothing here is required to use the analysis engines
 | Bundled skill      | `openamer-reverse-engineer` |
 | Upstream           | REA v6.8.0 by morluto (MIT) |
 
+## Installing the CLI
+
+`openamer-re` is not on the npm registry yet, so `npx openamer-re` will fail.
+Install from this repository instead:
+
+```bash
+npm install --prefix "$HOME/.oare" "$(pwd)"   # or: npm i -g "$(pwd)"
+node scripts/rea.mjs --version                # run without installing
+```
+
+The package pins `^22.23.4 || ^24.22.1 || >=26.12.1` and `.npmrc` sets
+`engine-strict=true`, so an older Node refuses to install.
+
 ## Tool-family scopes (measured on one Windows host)
 
 The server registers 229 tools when unscoped. Every tool schema costs context,
